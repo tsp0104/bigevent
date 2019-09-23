@@ -24,48 +24,64 @@
             <form class="login_form">
                 <i class="iconfont icon-user"></i>
                 <i class="iconfont icon-key"></i>
-                <input type="text" class="input_txt" id="userNmae" placeholder="邮箱/手机号">
+                <input type="text" class="input_txt" id="userName" placeholder="邮箱/手机号">
                 <input type="password" class="input_pass" id="pwd" placeholder="密码">
                 <input type="submit" class="input_sub" id="btnLogin" value="登 录">
             </form>
         </div>
+    </div>
 
-    </div> 
+    <div class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">错误提示</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="pResult"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="./js/jquery-1.12.4.min.js"></script>
     <script src="./js/bootstrap/js/bootstrap.min.js"></script>
-<script>
-    //给登录按钮注册点击事件
-$('#btnLogin').click(function () {
-    //获取用户输入用户名和密码的值
-   var userNmae = $('#userNmae').val();
-   var pwd = $('#pwd').val();
-    //判断用户输入的值
-    //如果没有输入的值是空那么提示，如果密码输入正确就跳转
-   if( userNmae == '' || pwd == ''){
-       alert('请输入用户名和密码')
-   }else{
-       return;
-   }
-   //发送ajax请求
-   $.post(
-       'http://localhost:8000/admin/login',
-       {
-        user_Nmae : 'userNmae',
-        password :'pwd'
-       },
-       function (res) {
-        if(res.code ==200){
-            window.location.href('./index.html')
-        }
-       }
-    
-    
-    
-    )
-})
-
-
-</script>
+    <script>
+        //给登录按钮注册点击事件
+        $('#btnLogin').click(function () {
+            //获取用户输入用户名和密码的值
+            var userName = $('#userName').val();
+            var pwd = $('#pwd').val();
+            //判断用户输入的值
+            //如果没有输入的值是空那么提示，如果密码输入正确就跳转
+            if (userName === '' || pwd === '') {
+                // $('#pResult').text('用户名和密码不能为空');
+                // $('.modal').modal('show');
+                alert('1111')
+                return;
+            } 
+            //用户登录发送ajax请求
+            $.post(
+                'http://localhost:8000/admin/login', {
+                    user_name: userName,
+                    password: pwd
+                },
+                function (res) {
+                    if (res.code == 200) {
+                        window.location.href = './index.html';
+                    } else {
+                        $('#pResult').text(res.msg);
+                        // $('.modal').modal('show');
+                    }
+                }
+            )
+        })
+    </script>
 </body>
 
 </html>
