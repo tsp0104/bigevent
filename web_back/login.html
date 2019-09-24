@@ -55,6 +55,7 @@
 
     <script src="./js/jquery-1.12.4.min.js"></script>
     <script src="./js/bootstrap/js/bootstrap.min.js"></script>
+    <script src="./js/utils.js/user.js"></script>
     <script>
         //给登录按钮注册点击事件
         $('#btnLogin').click(function () {
@@ -70,21 +71,15 @@
             } 
            
             //用户登录发送ajax请求
-            $.post(
-                'http://localhost:8000/admin/login', 
-                {
-                    user_name: userName,
-                    password: pwd
-                },
-                function (res) {
-                    if (res.code == 200) {
-                        window.location.href = './index.html';
-                    } else {
-                        $('#pResult').text(res.msg);
-                        $('.modal').modal('show');
-                    }
+            user.login(userName,pwd,function (res) {
+                if (res.code == 200) {
+                    window.location.href = './index.html';
+                } else {
+                    $('#pResult').text(res.msg);
+                    $('.modal').modal('show');
                 }
-            );
+            });
+           
         });
     </script>
 </body>
