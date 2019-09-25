@@ -11,7 +11,7 @@ var user = {
      */
     login:function (userName,pwd,callBack) {
         $.post(
-            'http://localhost:8000/admin/login', 
+            URLTST.user_login, 
             {
                 user_name: userName,
                 password: pwd
@@ -34,10 +34,19 @@ var user = {
      */
     logout:function (callBack) {
         $.post(
-            'http://localhost:8000/admin/logout', 
+            URLTST.user_logout, 
             function (res) {
                 callBack(res);  
             }
         );
     },
+
+    getInfo: function(callBack) {
+        $.get(
+            URLTST.user_getInfo,
+            function(res) {
+                callBack(res);
+            }
+        )
+    }
 }
