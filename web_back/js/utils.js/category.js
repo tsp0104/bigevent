@@ -13,8 +13,14 @@ var category = {
         )
     },
     //插入
-    add: function () {
-
+    add: function (name,slug,callback) {
+        $.post(
+            'http://localhost:8000/admin/category_add',
+            {name:name,slug:slug},
+            function (res){
+                callback(res)
+            }
+        )
     },
 
     //删除
